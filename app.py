@@ -34,14 +34,6 @@ def delete(id):
     db.session.commit()
     return redirect("/")
 
-@app.route("/update/<int:id>", methods=["POST"])
-def upgrade(id):
-    updtask = Todo.query.get(id)
-    updtask.title = request.form.get("title")
-    updtask.details = request.form.get("details")
-    db.session.commit()
-    return redirect("/")
-
 @app.route('/edit/<int:id>', methods=["GET", "POST"])
 def update(id):
     edit_task = Todo.query.get(id)
