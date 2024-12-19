@@ -42,10 +42,16 @@ def upgrade(id):
     db.session.commit()
     return redirect("/")
 
-@app.route("/edit/<int:id>")
-def edit(id):
-    updtask = Todo.query.get(id)
-    return render_template("edit.html", updtask=updtask)
+@app.route('/edit/<int:id>', methods=["GET", "POST"])
+def update(id):
+    edit_task = Todo.query.get(id)
+    if request.method == "GET":
+        return render_template("edit.html", task=edit_task)
+    else:
+        edit_task.title = request.form.get("title")
+        edit_task.details = request.form.get("details")
+        db.session.commit()
+        return redirect("/")
 
 if __name__ == "__main__":
     # with app.app_context():
